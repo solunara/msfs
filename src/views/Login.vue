@@ -5,7 +5,6 @@
           ref="loginRef"
           :model="loginInfo"
           :rules="rules"
-          status-icon
           label-width="auto"
       >
           <el-form-item prop="username">
@@ -44,7 +43,9 @@
   import { ElMessage } from 'element-plus'
   import { login } from '../api/login.js'
   import { CONFIG  } from '../config/index.js';
-  
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
   let isDisableLoginButton = ref(true)
   
   const loginInfo = reactive({
@@ -85,6 +86,7 @@
                 message: 'Congrats, '+response.data.msg,
                 type: 'success',
             })
+            router.replace('/')
         }else{
             ElMessage.error('Oops, '+response.data.msg)
         }

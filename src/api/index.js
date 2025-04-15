@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { CONFIG } from '../config'
+import router from '../router/index.js'
+import { ElMessage } from 'element-plus'
 
 // axios 全局配置
-axios.defaults.baseURL='/api'
+axios.defaults.baseURL='/api/ms'
 
 const request = (url='', data={}, method='get', timeout='3000')=>{
     return new Promise((resolve, reject)=>{
@@ -50,10 +52,10 @@ axios.interceptors.request.use(
         }
 
         // 设置token
-        const TokenValue = ''
+        let TokenValue = ''
         try{
             TokenValue = window.localStorage.getItem(CONFIG.TOKEN_NAME)
-        }catch{
+        }catch(error){
             TokenValue = ''
         }
         if (TokenValue == '' || TokenValue == undefined){
@@ -79,12 +81,25 @@ axios.interceptors.response.use(
             return Promise.resolve(response)
         }else if(response.data.code === 401){
             console.log('token is expired');
-            // todo: 跳转到登录页
+            ElMessage({
+                type: "warning",
+                message: response.data.msg,
+            })
+            // 删除token
+            window.localStorage.removeItem(CONFIG.TOKEN_NAME)
+            // 如果不是登录页，则跳转到登录页
+            if (router.currentRoute.path != '/login'){
+                router.replace('/login')
+            }
         }
         return response
     },
     (error)=>{
         // 不是 2xx 的响应码会触发该函数
+        ElMessage({
+            type: "error",
+            message: "请求错误： "+error.message
+        })
         return Promise.reject(error)
     },
 )
