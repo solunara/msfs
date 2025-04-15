@@ -19,17 +19,14 @@ import Header from './components/Header.vue';
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .el-container {
     height: 100vh;
     width: 100vw;
-    container {
+    .el-container__el-container {
         display: flex;
-    flex-direction: column;
+        flex-direction: column;
     }
 }
-.el-container__el-container {
-    display: flex;
-    flex-direction: column;
-}
+
 </style>

@@ -2,10 +2,12 @@
     <el-aside width="240px" style="border-right: 1px solid #cccccc;">
         <!-- logo -->
         <div class="aside-logo">
-            <el-button text style="font-size: 24px;">
-                <el-icon size="24px" style="margin-right: 10px;"><MostlyCloudy /></el-icon>
-                default
-            </el-button>
+            <router-link to="/">
+                <el-button text style="font-size: 24px;">
+                    <el-icon size="24px" style="margin-right: 10px;"><MostlyCloudy /></el-icon>
+                    default
+                </el-button>
+            </router-link>
         </div>
     </el-aside>
 </template>
