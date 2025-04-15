@@ -6,6 +6,6 @@ Management system front-end service.
 
 ```
 cnpm install vue-router@4
-cnpm install axios pinia element-plus --save
+cnpm install axios pinia element-plus less --save
 cnpm install -D sass-embedded
 ```

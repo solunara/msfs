@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { CONFIG } from '../config/index.js'
 
-const Index = ()=> import('../views/Index.vue')
+// const Index = ()=> import('../views/layout/Index.vue')
 const Login = () => import('../views/Login.vue')
+const Layout = ()=> import('../views/layout/Layout.vue')
 
 const routes = [
     {
@@ -13,7 +14,7 @@ const routes = [
     {
         name: 'index',
         path:'/',
-        component: Index,
+        component: Layout,
     },
     {
         path: '/home',
