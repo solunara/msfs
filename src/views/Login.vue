@@ -41,6 +41,9 @@
   <script setup>
   import { User, Lock } from '@element-plus/icons-vue'
   import { ref, reactive, watch } from 'vue';
+  import { ElMessage } from 'element-plus'
+  import { login } from '../api/login.js'
+  import { CONFIG  } from '../config/index.js';
   
   let isDisableLoginButton = ref(true)
   
@@ -71,9 +74,21 @@
       })
   })
 
+  // 登陆
   const submitForm = ()=>{
-    console.log(loginInfo.username);
-    console.log(loginInfo.password); 
+    login(loginInfo.username, loginInfo.password)
+    .then((response)=>{
+        if(response.data.code===200){
+            const token = response.data.data.token
+            window.localStorage.setItem(CONFIG.TOKEN_NAME, token)
+            ElMessage({
+                message: 'Congrats, '+response.data.msg,
+                type: 'success',
+            })
+        }else{
+            ElMessage.error('Oops, '+response.data.msg)
+        }
+    })
   }
 
 
