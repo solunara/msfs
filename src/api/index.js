@@ -1,9 +1,12 @@
 import axios from 'axios'
+import { CONFIG } from '../config'
+import router from '../router/index.js'
+import { ElMessage } from 'element-plus'
 
 // axios 全局配置
-axios.defaults.baseURL='/api'
+axios.defaults.baseURL='/api/ms'
 
-const request = (url='', data={}, method='get', timeout='5000')=>{
+const request = (url='', data={}, method='get', timeout='3000')=>{
     return new Promise((resolve, reject)=>{
         const methodLower = method.toLowerCase()
         if(methodLower === 'get'){
@@ -32,11 +35,10 @@ const request = (url='', data={}, method='get', timeout='5000')=>{
     })
 }
 
-// axios 请求拦截器
+// axios 全局请求拦截器
 axios.interceptors.request.use(
     (config)=>{
         // 请求之前的处理
-        //config.headers.Authorization = '<your token>'
         // 解决get请求缓存问题，给每个请求加个时间戳
         if (config.method == 'get') {
             let timeStamp = (new Date()).getTime()
@@ -48,6 +50,20 @@ axios.interceptors.request.use(
                 }
             }
         }
+
+        // 设置token
+        let TokenValue = ''
+        try{
+            TokenValue = window.localStorage.getItem(CONFIG.TOKEN_NAME)
+        }catch(error){
+            TokenValue = ''
+        }
+        if (TokenValue == '' || TokenValue == undefined){
+            config.headers[CONFIG.TOKEN_NAME]=''
+        }else{
+            config.headers[CONFIG.TOKEN_NAME]=TokenValue
+        }
+
         return config
     },
     (error)=>{
@@ -56,7 +72,7 @@ axios.interceptors.request.use(
     },
 )
 
-// axios 响应拦截器
+// axios 全局响应拦截器
 axios.interceptors.response.use(
     (response)=>{
         // 2xx 范围内的响应会触发该函数
@@ -65,12 +81,25 @@ axios.interceptors.response.use(
             return Promise.resolve(response)
         }else if(response.data.code === 401){
             console.log('token is expired');
-            // todo: 跳转到登录页
+            ElMessage({
+                type: "warning",
+                message: response.data.msg,
+            })
+            // 删除token
+            window.localStorage.removeItem(CONFIG.TOKEN_NAME)
+            // 如果不是登录页，则跳转到登录页
+            if (router.currentRoute.path != '/login'){
+                router.replace('/login')
+            }
         }
         return response
     },
     (error)=>{
         // 不是 2xx 的响应码会触发该函数
+        ElMessage({
+            type: "error",
+            message: "请求错误： "+error.message
+        })
         return Promise.reject(error)
     },
 )

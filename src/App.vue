@@ -1,13 +1,16 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+
 </script>
 
 <template>
-  <h1>hello vue</h1>
-  <p><router-link to="/index">去首页</router-link></p>
   <router-view></router-view>
 </template>
 
-<style scoped>
-
+<style>
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 </style>

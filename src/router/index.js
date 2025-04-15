@@ -1,11 +1,24 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { CONFIG } from '../config/index.js'
 
-import HelloWorld from '../components/HelloWorld.vue'
+// const Index = ()=> import('../views/layout/Index.vue')
+const Login = () => import('../views/Login.vue')
+const Layout = ()=> import('../views/layout/Layout.vue')
 
 const routes = [
     {
-        path:'/index',
-        component: HelloWorld,
+        name: 'login',
+        path:'/login',
+        component: Login,
+    },
+    {
+        name: 'index',
+        path:'/',
+        component: Layout,
+    },
+    {
+        path: '/home',
+        redirect: '/',
     },
 ]
 
@@ -13,6 +26,23 @@ const routes = [
 const router = createRouter({
     history: createWebHashHistory(),
     routes,
+})
+
+// 全局前置路由守卫
+router.beforeEach((to, from, next)=>{
+    const toLogin = to.path.indexOf('/login')
+    const tokenVal = window.localStorage.getItem(CONFIG.TOKEN_NAME)
+    console.log(toLogin);
+    console.log(tokenVal);
+    if (toLogin == 0 && tokenVal){
+        next('/')
+    }else if(toLogin == 0 && !tokenVal) {
+        next()
+    }else if( tokenVal ){
+        next()
+    }else {
+        next('/login')
+    }
 })
 
 // 导出路由实例
