@@ -31,11 +31,14 @@
         <!-- <template #footer>Footer content</template> -->
     </el-card>
     <el-dialog
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
         v-model="addUserDialog"
         title="添加用户"
         width="20%"
+        @close="closeAddUserDialog"
     >
-        <Add @refreshUserList="getUserList"></Add>
+        <Add @isRefreshUserList="isRefreshUserList"></Add>
     </el-dialog>
 </template>
 
@@ -108,7 +111,18 @@ const confirmDelete = (user) => {
 const addUser = ()=>{
     addUserDialog.value = true
 }
+const isRefresh =ref(false)
+const isRefreshUserList =(flag)=>{
+    isRefresh.value=flag
+}
 
+const closeAddUserDialog = ()=>{
+    addUserDialog.value = false
+    if(isRefresh.value){
+        isRefresh.value=false
+        getUserList()
+    }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -33,22 +33,22 @@ const data = reactive({
 })
 const {userFrom}=toRefs(data)
 
-const emits = defineEmits(['refreshUserList'])
-
 const clearFormValue = () => {
     userFromRef.value.resetFields()
 }
+
+const emit = defineEmits(['isRefreshUserList'])
 
 const addUser = ()=>{
     loading.value=true
     addUserHandler(data.userFrom)
     .then((response)=>{
         if(response.data.code===200){
+            emit('isRefreshUserList', true)
             ElMessage({
                 type: 'success',
                 message: response.data.msg,
             })
-            emits('refreshUserList')
         }else{
             ElMessage.error('Oops, '+response.data.msg)
         }
