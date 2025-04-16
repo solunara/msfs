@@ -1,5 +1,7 @@
 <template>
-    <el-main><router-view></router-view></el-main>
+    <div>
+        <h6>list user</h6>
+    </div>
 </template>
 
 <script setup>

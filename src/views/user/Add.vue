@@ -1,5 +1,7 @@
 <template>
-    <el-main><router-view></router-view></el-main>
+    <div>
+        <h6>add user</h6>
+    </div>
 </template>
 
 <script setup>

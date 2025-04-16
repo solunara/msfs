@@ -12,8 +12,8 @@
         <!-- menu -->
          <div id="menu">
             <el-menu
-                default-active="2"
                 class="el-menu-vertical-demo"
+                :default-active="$route.path"
                 router
             >
                 <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">

@@ -1,5 +1,3 @@
-import Index from "../views/layout/Index.vue";
-
 export const MENU_CONFIG = [
     // 用户管理
     {
