@@ -5,11 +5,6 @@ export const MENU_CONFIG = [
         index: '/user',
         icon: 'iconfont icon-yonghuguanli',
         items: [
-            // 添加用户
-            {
-                title: "添加用户",
-                index: '/user/add',
-            },
             // 查看用户
             {
                 title: "查看用户",

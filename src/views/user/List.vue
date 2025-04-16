@@ -3,7 +3,7 @@
         <template #header>
             <div class="card-header">
                 <span>用户列表</span>
-                <el-button class="button">添加</el-button>
+                <el-button class="button" @click="addUser">添加</el-button>
             </div>
         </template>
         <el-table
@@ -30,17 +30,26 @@
         </el-table>
         <!-- <template #footer>Footer content</template> -->
     </el-card>
+    <el-dialog
+        v-model="addUserDialog"
+        title="添加用户"
+        width="20%"
+    >
+        <Add></Add>
+    </el-dialog>
 </template>
 
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { onBeforeMount, reactive, toRefs, ref } from 'vue'
 import { getUserListHandler, deleteUserHandler } from '../../api/user.js'
+import Add from './Add.vue'
 
 const loading = ref(true)
 const userList=reactive({
     items: []
 })
+const addUserDialog = ref(false)
 
 onBeforeMount(()=>{
     getUserList()
@@ -97,6 +106,10 @@ const confirmDelete = (user) => {
     .catch(() => {
     })
 }
+const addUser = ()=>{
+    addUserDialog.value = true
+}
+
 </script>
 
 <style lang="scss" scoped>
