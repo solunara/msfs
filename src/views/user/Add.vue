@@ -12,7 +12,7 @@
         <div class="userFrom-button">
             <el-button @click="clearFormValue">清空</el-button>
             <el-button type="primary" @click="addUser">
-            提交
+            {{ props.method=="Create"?"添加":"更新" }}
             </el-button>
         </div>
     </el-form>
@@ -21,7 +21,17 @@
 <script setup>
 import { reactive, ref, toRefs } from "vue";
 import { ElMessage } from 'element-plus'
-import { addUserHandler } from '../../api/user.js'
+import { addUserHandler, updateUserHandler } from '../../api/user.js'
+
+const props = defineProps({
+    method: {
+        type: String,
+        default: "Create",
+    },
+    userForm: {
+        type: Object,
+    }
+})
 const loading = ref(false)
 const userFromRef = ref()
 const data = reactive({
@@ -34,7 +44,9 @@ const data = reactive({
 const {userFrom}=toRefs(data)
 
 const clearFormValue = () => {
-    userFromRef.value.resetFields()
+    if(userFromRef.value){
+        userFromRef.value.resetFields()
+    }
 }
 
 const emit = defineEmits(['isRefreshUserList'])

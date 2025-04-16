@@ -12,3 +12,7 @@ export const deleteUserHandler = (id)=>{
 export const addUserHandler = (userForm)=>{
     return request(API_CONFIG.addUserApi, {'username': userForm.username, 'address': userForm.address,'phone': userForm.phone}, "post", "2000")
 }
+
+export const updateUserHandler = (userForm)=>{
+    return request(API_CONFIG.updateUserApi, {'username': userForm.username, 'address': userForm.address,'phone': userForm.phone}, "post", "2000")
+}

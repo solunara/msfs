@@ -34,11 +34,12 @@
         :close-on-click-modal="false"
         :close-on-press-escape="false"
         v-model="addUserDialog"
-        title="添加用户"
+        destroy-on-close
+        :title="defaultMethod=='Create'?'添加用户':'更新用户'"
         width="20%"
         @close="closeAddUserDialog"
     >
-        <Add @isRefreshUserList="isRefreshUserList"></Add>
+        <Add :method="defaultMethod" @isRefreshUserList="isRefreshUserList"></Add>
     </el-dialog>
 </template>
 
@@ -47,10 +48,15 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { onBeforeMount, reactive, toRefs, ref } from 'vue'
 import { getUserListHandler, deleteUserHandler } from '../../api/user.js'
 import Add from './Add.vue'
-
+const defaultMethod = ref("Create")
 const loading = ref(true)
 const userList=reactive({
-    items: []
+    items: [],
+    userForm: {
+        username: '',
+        address: '',
+        phone: '',
+    }
 })
 const addUserDialog = ref(false)
 
@@ -92,6 +98,11 @@ const onDel = (id)=>{
     })
 }
 
+const onEdit = ()=>{
+    defaultMethod.value = "Edit"
+    addUserDialog.value = true
+}
+
 const confirmDelete = (user) => {
   ElMessageBox.confirm(
     '请确认删除的用户: '+user.name,
@@ -110,6 +121,7 @@ const confirmDelete = (user) => {
 }
 const addUser = ()=>{
     addUserDialog.value = true
+    defaultMethod.value = "Create"
 }
 const isRefresh =ref(false)
 const isRefreshUserList =(flag)=>{
