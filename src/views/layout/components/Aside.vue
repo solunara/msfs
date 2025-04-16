@@ -14,29 +14,47 @@
             <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
+                router
             >
-                <el-sub-menu index="1">
+                <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">
                     <template #title>
-                        <el-icon><location /></el-icon>
-                        <span>Navigator One</span>
+                        <el-icon><span :class="menu.icon"></span></el-icon>
+                        <span>{{ menu.title }}</span>
                     </template>
-                    <el-menu-item index="2">
-                        <el-icon><icon-menu /></el-icon>
-                        <template #title>Navigator Two</template>
-                    </el-menu-item>
+                    <template v-if="menu.items">
+                        <el-menu-item v-for="item in menu.items" :key="item.index" :index="item.index">
+                            <template #title>
+                                <el-icon><span :class="item.icon"></span></el-icon>
+                                <span>{{ item.title }}</span>
+                            </template>
+                        </el-menu-item>
+                    </template>
+                    <template v-else>
+                        <el-sub-menu v-for="submenu in menu.subMenu" :key="submenu.index" :index="submenu.index">
+                            <template #title>
+                                <el-icon><span :class="submenu.icon"></span></el-icon>
+                                <span>{{ submenu.title }}</span>
+                            </template>
+                            <template v-if="submenu.items">
+                                <el-menu-item v-for="submenuitem in submenu.items" :key="submenuitem.index" :index="submenuitem.index">
+                                    <template #title>
+                                        <el-icon><span :class="submenuitem.icon"></span></el-icon>
+                                        <span>{{ submenuitem.title }}</span>
+                                    </template>
+                                </el-menu-item>
+                            </template>
+                        </el-sub-menu>
+                    </template>
                 </el-sub-menu>
-                
-                <el-menu-item index="3">
-                    <el-icon><setting /></el-icon>
-                    <template #title>Navigator Three</template>
-                </el-menu-item>
             </el-menu>
          </div>
     </el-aside>
 </template>
 
 <script setup>
-  import { MostlyCloudy } from '@element-plus/icons-vue'
+import { MostlyCloudy } from '@element-plus/icons-vue'
+import { MENU_CONFIG } from '../../../config/menu.js'
+import '../../../assets/iconfont/iconfont.css'
 </script>
 
 <style lang="less" scoped>
