@@ -35,7 +35,7 @@
         title="添加用户"
         width="20%"
     >
-        <Add></Add>
+        <Add @refreshUserList="getUserList"></Add>
     </el-dialog>
 </template>
 
@@ -76,18 +76,17 @@ const onDel = (id)=>{
     loading.value=true
     deleteUserHandler(id)
     .then((response)=>{
-        if(response.data.code===200){
+        if(response.data.code==200){
             ElMessage({
                 type: "success",
                 message: response.data.msg,
             })
+            getUserList()
         }else{
             ElMessage.error('Oops, '+response.data.msg)
         }
-    })
-    setTimeout(() => {
         loading.value=false
-    }, 500);
+    })
 }
 
 const confirmDelete = (user) => {

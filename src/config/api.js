@@ -6,6 +6,7 @@ export const API_CONFIG = {
     // user
     getUserListApi: '/user/list',
     deleteUserApi: '/user/delete',
+    addUserApi: '/user/add',
 }
 
 export const CONFIG = {
