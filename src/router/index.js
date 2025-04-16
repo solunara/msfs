@@ -1,11 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { CONFIG } from '../config/index.js'
-
+import { CONFIG } from '../config/api.js'
+import  userRoutes  from './user.js'
 // const Index = ()=> import('../views/layout/Index.vue')
 const Login = () => import('../views/Login.vue')
 const Layout = ()=> import('../views/layout/Layout.vue')
 
 const routes = [
+    userRoutes,
     {
         name: 'login',
         path:'/login',
@@ -19,7 +20,7 @@ const routes = [
     {
         path: '/home',
         redirect: '/',
-    },
+    },   
 ]
 
 // 创建路由实例
@@ -32,8 +33,6 @@ const router = createRouter({
 router.beforeEach((to, from, next)=>{
     const toLogin = to.path.indexOf('/login')
     const tokenVal = window.localStorage.getItem(CONFIG.TOKEN_NAME)
-    console.log(toLogin);
-    console.log(tokenVal);
     if (toLogin == 0 && tokenVal){
         next('/')
     }else if(toLogin == 0 && !tokenVal) {

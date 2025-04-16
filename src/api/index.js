@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CONFIG } from '../config'
+import { CONFIG } from '../config/api.js'
 import router from '../router/index.js'
 import { ElMessage } from 'element-plus'
 
@@ -77,7 +77,6 @@ axios.interceptors.response.use(
     (response)=>{
         // 2xx 范围内的响应会触发该函数
         if(response.data.code === 200){
-            console.log('code is 200');
             return Promise.resolve(response)
         }else if(response.data.code === 401){
             console.log('token is expired');

@@ -44,7 +44,7 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { ref, reactive, watch } from 'vue';
 import { ElMessage } from 'element-plus'
 import { login } from '../api/login.js'
-import { CONFIG  } from '../config/index.js';
+import { CONFIG  } from '../config/api.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
