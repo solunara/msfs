@@ -1,4 +1,4 @@
-import { API_CONFIG, CONFIG } from "../config/index.js";
+import { API_CONFIG, CONFIG } from "../config/api.js";
 import request  from "../api/index.js";
 
 export const login = (username, password)=>{

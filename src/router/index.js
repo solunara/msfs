@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { CONFIG } from '../config/index.js'
+import { CONFIG } from '../config/api.js'
 import  userRoutes  from './user.js'
 // const Index = ()=> import('../views/layout/Index.vue')
 const Login = () => import('../views/Login.vue')
