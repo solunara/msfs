@@ -22,6 +22,7 @@
 import { onBeforeMount, onMounted, reactive, ref, toRefs } from "vue";
 import { ElMessage } from 'element-plus'
 import { addUserHandler, updateUserHandler } from '../../api/user.js'
+
 const props = defineProps({
     method: {
         type: String,
