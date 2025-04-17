@@ -1,13 +1,14 @@
+const BASE_URL = import.meta.env.VITE_BASE_URL
 export const API_CONFIG = {
     // login
-    loginApi: '/login',
-    logoutApi: '/logout',
+    loginApi: `${BASE_URL}/login`,
+    logoutApi: `${BASE_URL}/logout`,
 
     // user
-    getUserListApi: '/user/list',
-    deleteUserApi: '/user/delete',
-    addUserApi: '/user/add',
-    updateUserApi: '/user/update'
+    getUserListApi: `${BASE_URL}/user/list`,
+    deleteUserApi: `${BASE_URL}/user/delete`,
+    addUserApi: `${BASE_URL}/user/add`,
+    updateUserApi: `${BASE_URL}/user/update`,
     
 }
 
