@@ -39,7 +39,7 @@
         width="20%"
         @close="closeAddUserDialog"
     >
-        <Add :method="defaultMethod" @isRefreshUserList="isRefreshUserList"></Add>
+        <Add :userForm="userForm" :method="defaultMethod" @isRefreshUserList="isRefreshUserList" @closeAddUserDialogNow="closeAddUserDialogNow"></Add>
     </el-dialog>
 </template>
 
@@ -78,7 +78,7 @@ const getUserList = ()=>{
     }, 500);
 }
 
-const {items} = toRefs(userList)
+const {items, userForm} = toRefs(userList)
 
 
 const onDel = (id)=>{
@@ -98,9 +98,13 @@ const onDel = (id)=>{
     })
 }
 
-const onEdit = ()=>{
+const onEdit = (rowVal)=>{
+    console.log(rowVal)
     defaultMethod.value = "Edit"
     addUserDialog.value = true
+    userList.userForm.username=rowVal.name
+    userList.userForm.address=rowVal.address
+    userList.userForm.phone=rowVal.phone
 }
 
 const confirmDelete = (user) => {
@@ -121,6 +125,9 @@ const confirmDelete = (user) => {
 }
 const addUser = ()=>{
     addUserDialog.value = true
+    userList.userForm.username=''
+    userList.userForm.address=''
+    userList.userForm.phone=''
     defaultMethod.value = "Create"
 }
 const isRefresh =ref(false)
@@ -134,6 +141,10 @@ const closeAddUserDialog = ()=>{
         isRefresh.value=false
         getUserList()
     }
+}
+
+const closeAddUserDialogNow = ()=>{
+    addUserDialog.value = false
 }
 </script>
 

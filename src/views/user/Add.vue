@@ -19,10 +19,9 @@
 </template>
 
 <script setup>
-import { reactive, ref, toRefs } from "vue";
+import { onBeforeMount, onMounted, reactive, ref, toRefs } from "vue";
 import { ElMessage } from 'element-plus'
 import { addUserHandler, updateUserHandler } from '../../api/user.js'
-
 const props = defineProps({
     method: {
         type: String,
@@ -43,33 +42,57 @@ const data = reactive({
 })
 const {userFrom}=toRefs(data)
 
+onMounted(()=>{
+    data.userFrom = JSON.parse(JSON.stringify(props.userForm))
+})
+
 const clearFormValue = () => {
-    if(userFromRef.value){
-        userFromRef.value.resetFields()
-    }
+    userFromRef.value.resetFields()
 }
 
-const emit = defineEmits(['isRefreshUserList'])
+const emit = defineEmits(['isRefreshUserList', 'closeAddUserDialogNow'])
 
 const addUser = ()=>{
     loading.value=true
-    addUserHandler(data.userFrom)
-    .then((response)=>{
-        if(response.data.code===200){
-            emit('isRefreshUserList', true)
-            ElMessage({
-                type: 'success',
-                message: response.data.msg,
-            })
-        }else{
-            ElMessage.error('Oops, '+response.data.msg)
-        }
-        loading.value=false
-    })
-    .catch((error)=>{
-        ElMessage.error('Oops, '+error)
-        loading.value=false
-    })
+    if(props.method=="Create"){
+        addUserHandler(data.userFrom)
+        .then((response)=>{
+            if(response.data.code===200){
+                emit('isRefreshUserList', true)
+                ElMessage({
+                    type: 'success',
+                    message: response.data.msg,
+                })
+            }else{
+                ElMessage.error('Oops, '+response.data.msg)
+            }
+            loading.value=false
+        })
+        .catch((error)=>{
+            ElMessage.error('Oops, '+error)
+            loading.value=false
+        })
+    }else{
+        updateUserHandler(data.userFrom)
+        .then((response)=>{
+            if(response.data.code===200){
+                emit('isRefreshUserList', true)
+                ElMessage({
+                    type: 'success',
+                    message: response.data.msg,
+                })
+            }else{
+                ElMessage.error('Oops, '+response.data.msg)
+            }
+            loading.value=false
+            emit('closeAddUserDialogNow')
+        })
+        .catch((error)=>{
+            ElMessage.error('Oops, '+error)
+            loading.value=false
+            emit('closeAddUserDialogNow')
+        })
+    }
 }
 </script>
 
