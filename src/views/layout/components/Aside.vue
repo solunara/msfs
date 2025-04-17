@@ -1,11 +1,11 @@
 <template>
-    <el-aside width="240px" style="border-right: 1px solid #cccccc;">
+    <el-aside :style="{width: isCollapse?'65px':'240px'}" style="border-right: 1px solid #cccccc;">
         <!-- logo -->
         <div class="aside-logo">
             <router-link to="/">
                 <el-button text style="font-size: 24px;">
-                    <el-icon size="24px" style="margin-right: 10px;"><MostlyCloudy /></el-icon>
-                    default
+                    <el-icon size="24px" style="align-items: center"><House /></el-icon>
+                    <span v-show="!isCollapse">首页</span>
                 </el-button>
             </router-link>
         </div>
@@ -14,6 +14,8 @@
             <el-menu
                 class="el-menu-vertical-demo"
                 :default-active="$route.path"
+                :collapse="isCollapse"
+                :collapse-transition="false"
                 router
             >
                 <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">
@@ -52,9 +54,13 @@
 </template>
 
 <script setup>
-import { MostlyCloudy } from '@element-plus/icons-vue'
+import { House } from '@element-plus/icons-vue'
 import { MENU_CONFIG } from '../../../config/menu.js'
 import '../../../assets/iconfont/iconfont.css'
+import { ref,toRefs } from 'vue'
+import { useIsCollapse } from '../../../store/index.js'
+import { storeToRefs } from 'pinia'
+const { isCollapse } = storeToRefs(useIsCollapse())
 </script>
 
 <style lang="less" scoped>
@@ -64,5 +70,12 @@ import '../../../assets/iconfont/iconfont.css'
         width: 100%;
         height: 100%;
     }
+}
+.el-aside {
+    transition: width 0.15s;
+    -webkit-transition: width 0.15s;
+    -moz-transition: width 0.15s;
+    -webkit-transition: width 0.15s;
+    -o-transition: width 0.15s;
 }
 </style>

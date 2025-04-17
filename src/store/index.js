@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 
-export const useStoreDemo = defineStore('storeDemo',{
+export const useIsCollapse = defineStore('isCollapse',{
     state:()=>{
         return {
-            msg: 'hello pinia',
+            isCollapse: false,
         }
     },
     getters: {},
     actions: {
-        changeMsgValue(newValue) {
-            this.msg=newValue
+        changeIsCollapse() {
+            this.isCollapse=!this.isCollapse
         }
     },
 })
