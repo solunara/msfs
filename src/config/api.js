@@ -9,10 +9,6 @@ export const API_CONFIG = {
     deleteUserApi: `${BASE_URL}/user/delete`,
     addUserApi: `${BASE_URL}/user/add`,
     updateUserApi: `${BASE_URL}/user/update`,
-<<<<<<< HEAD
-    
-=======
->>>>>>> main
 }
 
 export const CONFIG = {
