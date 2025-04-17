@@ -4,7 +4,7 @@ import router from '../router/index.js'
 import { ElMessage } from 'element-plus'
 
 // axios 全局配置
-axios.defaults.baseURL='/api/ms'
+// axios.defaults.baseURL='/api/ms'
 
 const request = (url='', data={}, method='get', timeout='3000')=>{
     return new Promise((resolve, reject)=>{
