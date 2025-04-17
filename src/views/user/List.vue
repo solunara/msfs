@@ -80,7 +80,10 @@ const getUserList = ()=>{
 
 const {items, userForm} = toRefs(userList)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 const onDel = (id)=>{
     loading.value=true
     deleteUserHandler(id)
@@ -146,6 +149,10 @@ const closeAddUserDialog = ()=>{
 const closeAddUserDialogNow = ()=>{
     addUserDialog.value = false
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 </script>
 
 <style lang="scss" scoped>
