@@ -5,7 +5,7 @@
             <router-link to="/">
                 <el-button text style="font-size: 24px;">
                     <el-icon size="24px" style="align-items: center"><House /></el-icon>
-                    <span v-show="!isCollapse">首页</span>
+                    <span v-show="!isCollapse">{{$t('messages.home')}}</span>
                 </el-button>
             </router-link>
         </div>
@@ -21,13 +21,13 @@
                 <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">
                     <template #title>
                         <el-icon><span :class="menu.icon"></span></el-icon>
-                        <span>{{ menu.title }}</span>
+                        <span>{{ $t(`messages.${menu.key}`) }}</span>
                     </template>
                     <template v-if="menu.items">
                         <el-menu-item v-for="item in menu.items" :key="item.index" :index="item.index">
                             <template #title>
                                 <el-icon><span :class="item.icon"></span></el-icon>
-                                <span>{{ item.title }}</span>
+                                <span>{{ $t(`messages.${item.key}`) }}</span>
                             </template>
                         </el-menu-item>
                     </template>
@@ -35,13 +35,13 @@
                         <el-sub-menu v-for="submenu in menu.subMenu" :key="submenu.index" :index="submenu.index">
                             <template #title>
                                 <el-icon><span :class="submenu.icon"></span></el-icon>
-                                <span>{{ submenu.title }}</span>
+                                <span>{{ $t(`messages.${submenu.key}`) }}</span>
                             </template>
                             <template v-if="submenu.items">
                                 <el-menu-item v-for="submenuitem in submenu.items" :key="submenuitem.index" :index="submenuitem.index">
                                     <template #title>
                                         <el-icon><span :class="submenuitem.icon"></span></el-icon>
-                                        <span>{{ submenuitem.title }}</span>
+                                        <span>{{ $t(`messages.${submenuitem.key}`) }}</span>
                                     </template>
                                 </el-menu-item>
                             </template>
