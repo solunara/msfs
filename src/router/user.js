@@ -13,7 +13,15 @@ const userRoutes = {
         {
             path: 'list',
             component: ()=> import('../views/user/List.vue')
-        }
+        },
+        {
+            path: 'shuttle',
+            component: ()=> import('@components/Shuttle.vue')
+        },
+        {
+            path: 'carousel',
+            component: ()=> import('@components/Carousel.vue')
+        },
     ],
 }
 

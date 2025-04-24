@@ -10,6 +10,16 @@ export const MENU_CONFIG = [
                 title: "查看用户",
                 index: '/user/list',
             },
+            // 穿梭框
+            {
+                title: "穿梭框",
+                index: '/user/shuttle',
+            },
+            // 轮播图
+            {
+                title: "轮播图",
+                index: '/user/carousel',
+            },
         ],
     },
     // 产品管理

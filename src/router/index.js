@@ -20,7 +20,11 @@ const routes = [
     {
         path: '/home',
         redirect: '/',
-    },   
+    },
+    {
+        path: '/index',
+        redirect: '/',
+    }, 
 ]
 
 // 创建路由实例
